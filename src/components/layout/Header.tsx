@@ -12,6 +12,7 @@ const NAV_LINKS = [
   { label: 'Shop', path: '/shop' },
   { label: 'Toolbox', path: '/toolbox' },
   { label: 'Knowledge', path: '/knowledge' },
+  { label: 'Tax Compare', path: '/tax-comparison' },
   { label: 'About', path: '/about' },
 ]
 

@@ -16,6 +16,7 @@ import { Knowledge } from '@/pages/Knowledge'
 import { Checkout } from '@/pages/Checkout'
 import { Subscribe } from '@/pages/Subscribe'
 import { PaymentCallback } from '@/pages/PaymentCallback'
+import { UgandaTaxComparison } from '@/pages/UgandaTaxComparison'
 import { useCart } from '@/hooks/useCart'
 import { useAuth } from '@/hooks/useAuth'
 
@@ -53,6 +54,7 @@ export default function App() {
           <Route path="/opportunities" element={<Opportunities />} />
           <Route path="/knowledge" element={<Knowledge />} />
           <Route path="/subscribe" element={<Subscribe />} />
+          <Route path="/tax-comparison" element={<UgandaTaxComparison />} />
           <Route path="/checkout" element={<Checkout items={cart.items} total={cart.total} onSuccess={() => { cart.clearCart(); showToast('Order placed!') }} />} />
           <Route path="/payment/callback" element={<PaymentCallback />} />
           <Route
