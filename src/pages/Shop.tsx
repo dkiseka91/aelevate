@@ -28,13 +28,6 @@ export function Shop({ onAddToCart, onCartOpen }: ShopProps) {
         </div>
       </section>
 
-      {/* Impact banner */}
-      <div style={{ background: '#F5A623', padding: '0.875rem 1.5rem', textAlign: 'center' }}>
-        <span style={{ fontFamily: 'DM Sans', fontWeight: 600, color: '#1A2744', fontSize: '0.9rem' }}>
-          🌍 Every purchase supports Ugandan artisans & youth trainees.
-        </span>
-      </div>
-
       {/* Products */}
       <section style={{ background: '#f8f9fc', padding: '3rem 1.5rem' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
@@ -84,7 +77,7 @@ export function Shop({ onAddToCart, onCartOpen }: ShopProps) {
                         padding: '0.5rem 0.75rem', margin: '0.75rem 0',
                         fontFamily: 'DM Sans', fontSize: '0.78rem', color: '#16a34a',
                       }}>
-                        🌱 {product.impact}
+                        {product.impact}
                       </div>
                     )}
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 'auto', paddingTop: 12 }}>

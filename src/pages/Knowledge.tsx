@@ -34,7 +34,7 @@ export function Knowledge() {
         <div style={{ background: '#F5A623', padding: '1rem 1.5rem' }}>
           <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
             <div style={{ fontFamily: 'DM Sans', fontWeight: 600, color: '#1A2744' }}>
-              🔒 Some articles are member-only. Subscribe for full access.
+              Some articles are member-only. Subscribe for full access.
             </div>
             <button
               onClick={() => navigate('/subscribe')}
@@ -64,7 +64,7 @@ export function Knowledge() {
               {featured.length > 0 && (
                 <>
                   <h2 style={{ fontFamily: 'Syne', fontWeight: 800, fontSize: '1.25rem', color: '#1A2744', marginBottom: '1.5rem' }}>
-                    ⭐ Featured Articles
+                    Featured Articles
                   </h2>
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: 20, marginBottom: '3rem' }}>
                     {featured.map(a => <ArticleCard key={a.id} article={a} isPremium={isPremium} onLockClick={() => !user ? setAuthOpen(true) : navigate('/subscribe')} />)}
@@ -115,7 +115,15 @@ function ArticleCard({ article, isPremium, onLockClick }: {
           }}>
             {article.category}
           </span>
-          {article.featured && <span style={{ fontSize: '0.75rem', color: '#F5A623' }}>⭐</span>}
+          {article.featured && (
+            <span style={{
+              background: 'rgba(245,166,35,0.12)', color: '#F5A623',
+              borderRadius: 100, padding: '0.2rem 0.6rem',
+              fontFamily: 'DM Sans', fontSize: '0.72rem', fontWeight: 600,
+            }}>
+              Featured
+            </span>
+          )}
         </div>
         <h3 style={{ fontFamily: 'Syne', fontWeight: 700, fontSize: '1rem', color: '#1A2744', marginBottom: 8 }}>
           {article.title}

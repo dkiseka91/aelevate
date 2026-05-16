@@ -1,16 +1,20 @@
 import { useToolbox } from '@/hooks/useFirestore'
 import { LoadingSpinner } from '@/components/shared/LoadingSpinner'
-import { Download, Eye } from 'lucide-react'
+import { Download, Eye, FileText, BookOpen, Wrench, CheckSquare, Package, CreditCard } from 'lucide-react'
 
 function formatUGX(n: number) {
   return n === 0 ? 'Free' : `UGX ${n.toLocaleString()}`
 }
 
-const TYPE_ICONS: Record<string, string> = {
-  template: '📄',
-  guide: '📚',
-  tool: '🔧',
-  checklist: '✅',
+function TypeIcon({ type }: { type: string }) {
+  const props = { size: 20, color: '#F5A623' }
+  switch (type) {
+    case 'template': return <FileText {...props} />
+    case 'guide': return <BookOpen {...props} />
+    case 'tool': return <Wrench {...props} />
+    case 'checklist': return <CheckSquare {...props} />
+    default: return <Package {...props} />
+  }
 }
 
 export function Toolbox() {
@@ -49,11 +53,11 @@ export function Toolbox() {
                 }}>
                   <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12, marginBottom: 12 }}>
                     <div style={{
-                      width: 48, height: 48, borderRadius: 12,
+                      width: 44, height: 44, borderRadius: 12,
                       background: 'rgba(245,166,35,0.1)', display: 'flex',
-                      alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem', flexShrink: 0,
+                      alignItems: 'center', justifyContent: 'center', flexShrink: 0,
                     }}>
-                      {TYPE_ICONS[item.type] ?? '📦'}
+                      <TypeIcon type={item.type} />
                     </div>
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <div style={{ fontFamily: 'DM Sans', fontSize: '0.75rem', color: '#9ca3af', textTransform: 'capitalize', marginBottom: 4 }}>
@@ -107,7 +111,7 @@ export function Toolbox() {
                           fontFamily: 'Syne', fontWeight: 700, fontSize: '0.85rem', color: '#1A2744', cursor: 'pointer',
                         }}
                       >
-                        💳 Buy — {formatUGX(item.price)}
+                        <CreditCard size={14} /> Buy — {formatUGX(item.price)}
                       </button>
                     ) : null}
                   </div>

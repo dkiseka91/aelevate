@@ -104,17 +104,17 @@ export function Home() {
       </section>
 
       {/* Stats */}
-      <section style={{ background: '#F5A623', padding: '2rem 1.5rem' }}>
+      <section style={{ background: 'white', borderBottom: '1px solid #f0f1f5', padding: '2.5rem 1.5rem' }}>
         <div style={{
           maxWidth: 1200, margin: '0 auto',
           display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 16,
         }}>
           {STATS.map(stat => (
             <div key={stat.label} style={{ textAlign: 'center' }}>
-              <div style={{ fontFamily: 'Syne', fontWeight: 800, fontSize: '2rem', color: '#1A2744' }}>
+              <div style={{ fontFamily: 'Syne', fontWeight: 800, fontSize: '2rem', color: '#F5A623' }}>
                 {stat.value}
               </div>
-              <div style={{ fontFamily: 'DM Sans', fontSize: '0.875rem', color: 'rgba(26,39,68,0.75)' }}>
+              <div style={{ fontFamily: 'DM Sans', fontSize: '0.875rem', color: '#6B7A8D' }}>
                 {stat.label}
               </div>
             </div>
@@ -196,7 +196,7 @@ export function Home() {
               fontSize: '0.95rem', color: 'white', textDecoration: 'none',
             }}
           >
-            💬 WhatsApp Us Now
+            WhatsApp Us Now
           </a>
         </div>
       </section>

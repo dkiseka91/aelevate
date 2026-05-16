@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { MapPin, Phone, Mail } from 'lucide-react'
 
 const FOOTER_LINKS = [
   {
@@ -7,7 +8,7 @@ const FOOTER_LINKS = [
       ['Training Academy', '/training'],
       ['Advisory Services', '/advisory'],
       ['Opportunity Portal', '/opportunities'],
-      ['Entrepreneur\'s Toolbox', '/toolbox'],
+      ["Entrepreneur's Toolbox", '/toolbox'],
     ],
   },
   {
@@ -38,22 +39,29 @@ export function Footer() {
                 width: 36, height: 36, borderRadius: '50%', border: '2.5px solid #F5A623',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
               }}>
-                <span style={{ fontFamily: 'Syne', fontWeight: 800, color: '#F5A623' }}>V</span>
+                <span style={{ fontFamily: 'Syne', fontWeight: 800, color: '#F5A623' }}>A</span>
               </div>
               <div>
                 <div style={{ fontFamily: 'Syne', fontWeight: 800, fontSize: '1rem', color: 'white' }}>AElevate</div>
                 <div style={{ fontFamily: 'DM Sans', fontSize: '0.6rem', color: '#F5A623', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-                  BUSINESS INNOVATIONS
+                  Business Innovations
                 </div>
               </div>
             </div>
-            <p style={{ fontFamily: 'DM Sans', fontSize: '0.85rem', color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, marginBottom: 16 }}>
-              Uganda's Small Business Success Hub for Ugandan Entrepreneurs
+            <p style={{ fontFamily: 'DM Sans', fontSize: '0.85rem', color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, marginBottom: 20 }}>
+              Uganda's Small Business Success Hub — empowering entrepreneurs to grow and thrive.
             </p>
-            <div style={{ fontFamily: 'DM Sans', fontSize: '0.82rem', color: 'rgba(255,255,255,0.4)' }}>
-              <div>📍 Naalya, Uganda</div>
-              <div style={{ marginTop: 4 }}>📞 +256 786 259854</div>
-              <div style={{ marginTop: 4 }}>✉ elevatebusinesssolutions96@gmail.com</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {[
+                { icon: MapPin, text: 'Naalya, Uganda' },
+                { icon: Phone, text: '+256 786 259854' },
+                { icon: Mail, text: 'elevatebusinesssolutions96@gmail.com' },
+              ].map(({ icon: Icon, text }) => (
+                <div key={text} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <Icon size={13} color="rgba(255,255,255,0.35)" />
+                  <span style={{ fontFamily: 'DM Sans', fontSize: '0.82rem', color: 'rgba(255,255,255,0.4)' }}>{text}</span>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -87,27 +95,27 @@ export function Footer() {
             </div>
           ))}
 
-          {/* Integrations */}
+          {/* Subscribe CTA */}
           <div>
             <h5 style={{
               fontFamily: 'Syne', fontWeight: 700, fontSize: '0.85rem',
               color: '#F5A623', marginBottom: 16, letterSpacing: '0.08em', textTransform: 'uppercase',
             }}>
-              Integrations
+              Stay Updated
             </h5>
-            {[
-              '🔥 Firebase — Auth & Database',
-              '💳 Pesapal — Mobile Money & Cards',
-              '💬 WhatsApp — Booking & Support',
-            ].map(item => (
-              <div key={item} style={{
-                fontFamily: 'DM Sans', fontSize: '0.82rem', color: 'rgba(255,255,255,0.5)',
-                padding: '8px 12px', background: 'rgba(255,255,255,0.04)',
-                borderRadius: 8, border: '1px solid rgba(255,255,255,0.06)', marginBottom: 8,
-              }}>
-                {item}
-              </div>
-            ))}
+            <p style={{ fontFamily: 'DM Sans', fontSize: '0.82rem', color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, marginBottom: 16 }}>
+              Get alerts on new grants, scholarships, and opportunities for your business.
+            </p>
+            <Link
+              to="/subscribe"
+              style={{
+                display: 'inline-block', background: '#F5A623', borderRadius: 8,
+                padding: '0.6rem 1.25rem', fontFamily: 'Syne', fontWeight: 700,
+                fontSize: '0.82rem', color: '#1A2744', textDecoration: 'none',
+              }}
+            >
+              Subscribe Now
+            </Link>
           </div>
         </div>
 
@@ -116,10 +124,10 @@ export function Footer() {
           display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12,
         }}>
           <div style={{ fontFamily: 'DM Sans', fontSize: '0.78rem', color: 'rgba(255,255,255,0.3)' }}>
-            © 2025 AElevate Business Innovations. All rights reserved. · Naalya, Uganda
+            © 2025 AElevate Business Innovations. All rights reserved.
           </div>
           <div style={{ fontFamily: 'DM Sans', fontSize: '0.78rem', color: 'rgba(255,255,255,0.3)' }}>
-            Powered by Firebase & Pesapal · Built with ❤ for Ugandan Entrepreneurs
+            Built for Ugandan Entrepreneurs
           </div>
         </div>
       </div>

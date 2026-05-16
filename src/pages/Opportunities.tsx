@@ -113,7 +113,13 @@ export function Opportunities() {
                       {opp.category}
                     </span>
                     {opp.featured && (
-                      <span style={{ fontFamily: 'DM Sans', fontSize: '0.75rem', color: '#F5A623', fontWeight: 600 }}>⭐ Featured</span>
+                      <span style={{
+                        background: 'rgba(245,166,35,0.12)', color: '#F5A623',
+                        borderRadius: 100, padding: '0.2rem 0.6rem',
+                        fontFamily: 'DM Sans', fontSize: '0.72rem', fontWeight: 600,
+                      }}>
+                        Featured
+                      </span>
                     )}
                   </div>
                   <h3 style={{ fontFamily: 'Syne', fontWeight: 700, fontSize: '1rem', color: '#1A2744', marginBottom: 6 }}>
@@ -152,7 +158,7 @@ export function Opportunities() {
       <section style={{ background: '#1A2744', padding: '3rem 1.5rem' }}>
         <div style={{ maxWidth: 720, margin: '0 auto', textAlign: 'center' }}>
           <h2 style={{ fontFamily: 'Syne', fontWeight: 800, fontSize: '1.5rem', color: 'white', marginBottom: 12 }}>
-            🔔 Never Miss an Opportunity
+            Never Miss an Opportunity
           </h2>
           <p style={{ fontFamily: 'DM Sans', color: 'rgba(255,255,255,0.65)', marginBottom: '1.5rem', lineHeight: 1.7 }}>
             Subscribe to AElevate Premium and get instant alerts for new grants, scholarships, and exhibitions matched to your business.

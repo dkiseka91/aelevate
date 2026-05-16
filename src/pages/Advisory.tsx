@@ -1,10 +1,12 @@
+import { Search, Map, DollarSign, Megaphone, Scale, Rocket } from 'lucide-react'
+
 const ADVISORY_SERVICES = [
-  { title: 'Business Diagnosis', desc: 'We analyse your current business model, financials, and operations to identify growth blockers and quick wins.', icon: '🔍' },
-  { title: 'Strategic Planning', desc: 'Develop a practical 90-day or annual growth plan tailored to Uganda\'s market realities.', icon: '🗺️' },
-  { title: 'Financial Advisory', desc: 'Budgeting, cash flow management, investment readiness, and access to finance coaching.', icon: '💰' },
-  { title: 'Marketing & Digital', desc: 'Uganda-specific marketing strategies: WhatsApp marketing, local partnerships and community outreach.', icon: '📣' },
-  { title: 'Legal & Compliance', desc: 'Business registration, tax compliance (URA), and regulatory guidance for Ugandan SMEs.', icon: '⚖️' },
-  { title: 'Investor Readiness', desc: 'Pitch deck preparation, financial modelling, and connecting you with relevant funding sources.', icon: '🚀' },
+  { title: 'Business Diagnosis', desc: "We analyse your current business model, financials, and operations to identify growth blockers and quick wins.", icon: Search },
+  { title: 'Strategic Planning', desc: "Develop a practical 90-day or annual growth plan tailored to Uganda's market realities.", icon: Map },
+  { title: 'Financial Advisory', desc: 'Budgeting, cash flow management, investment readiness, and access to finance coaching.', icon: DollarSign },
+  { title: 'Marketing & Digital', desc: 'Uganda-specific marketing strategies: WhatsApp marketing, local partnerships and community outreach.', icon: Megaphone },
+  { title: 'Legal & Compliance', desc: 'Business registration, tax compliance (URA), and regulatory guidance for Ugandan SMEs.', icon: Scale },
+  { title: 'Investor Readiness', desc: 'Pitch deck preparation, financial modelling, and connecting you with relevant funding sources.', icon: Rocket },
 ]
 
 export function Advisory() {
@@ -29,17 +31,23 @@ export function Advisory() {
             Our Advisory Services
           </h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 20 }}>
-            {ADVISORY_SERVICES.map(svc => (
-              <div key={svc.title} style={{
+            {ADVISORY_SERVICES.map(({ icon: Icon, title, desc }) => (
+              <div key={title} style={{
                 background: 'white', borderRadius: 16, padding: '1.5rem',
                 boxShadow: '0 2px 12px rgba(26,39,68,0.06)', border: '1px solid rgba(26,39,68,0.06)',
               }}>
-                <div style={{ fontSize: '2rem', marginBottom: 12 }}>{svc.icon}</div>
+                <div style={{
+                  width: 44, height: 44, borderRadius: 12,
+                  background: 'rgba(245,166,35,0.1)', display: 'flex',
+                  alignItems: 'center', justifyContent: 'center', marginBottom: 14,
+                }}>
+                  <Icon size={20} color="#F5A623" />
+                </div>
                 <h3 style={{ fontFamily: 'Syne', fontWeight: 700, fontSize: '1.05rem', color: '#1A2744', marginBottom: 8 }}>
-                  {svc.title}
+                  {title}
                 </h3>
                 <p style={{ fontFamily: 'DM Sans', fontSize: '0.875rem', color: '#6B7A8D', lineHeight: 1.6 }}>
-                  {svc.desc}
+                  {desc}
                 </p>
               </div>
             ))}
@@ -67,7 +75,7 @@ export function Advisory() {
                 fontFamily: 'Syne', fontWeight: 700, fontSize: '0.95rem', color: 'white', textDecoration: 'none',
               }}
             >
-              💬 Book on WhatsApp
+              Book on WhatsApp
             </a>
             <a
               href="mailto:elevatebusinesssolutions96@gmail.com?subject=Advisory%20Session%20Booking"
@@ -78,7 +86,7 @@ export function Advisory() {
                 fontFamily: 'Syne', fontWeight: 700, fontSize: '0.95rem', color: 'white', textDecoration: 'none',
               }}
             >
-              ✉ Email Us
+              Email Us
             </a>
           </div>
         </div>

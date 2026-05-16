@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { MapPin, Phone } from 'lucide-react'
 
 export function About() {
   useEffect(() => {
@@ -82,15 +83,23 @@ export function About() {
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 16 }}>
             <a href="https://wa.me/256786259854" target="_blank" rel="noopener noreferrer"
               style={{ display: 'flex', alignItems: 'center', gap: 8, background: '#25D366', borderRadius: 10, padding: '0.75rem 1.5rem', color: 'white', textDecoration: 'none', fontFamily: 'Syne', fontWeight: 700, fontSize: '0.9rem' }}>
-              💬 WhatsApp Us
+              WhatsApp Us
             </a>
             <a href="mailto:elevatebusinesssolutions96@gmail.com"
               style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: 10, padding: '0.75rem 1.5rem', color: 'white', textDecoration: 'none', fontFamily: 'Syne', fontWeight: 700, fontSize: '0.9rem' }}>
-              ✉ Email Us
+              Email Us
             </a>
           </div>
-          <div style={{ marginTop: '2rem', fontFamily: 'DM Sans', fontSize: '0.875rem', color: 'rgba(255,255,255,0.45)' }}>
-            📍 Naalya, Uganda · 📞 +256 786 259854
+          <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'center', gap: 24, flexWrap: 'wrap' }}>
+            {[
+              { icon: MapPin, text: 'Naalya, Uganda' },
+              { icon: Phone, text: '+256 786 259854' },
+            ].map(({ icon: Icon, text }) => (
+              <div key={text} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <Icon size={13} color="rgba(255,255,255,0.4)" />
+                <span style={{ fontFamily: 'DM Sans', fontSize: '0.875rem', color: 'rgba(255,255,255,0.45)' }}>{text}</span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
