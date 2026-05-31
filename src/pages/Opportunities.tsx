@@ -4,6 +4,7 @@ import { useOpportunities } from '@/hooks/useFirestore'
 import { LoadingSpinner } from '@/components/shared/LoadingSpinner'
 import { Search } from 'lucide-react'
 import type { Opportunity } from '@/types'
+import type React from 'react'
 
 const CATEGORIES: { value: Opportunity['category'] | 'all'; label: string }[] = [
   { value: 'all', label: 'All' },
@@ -18,6 +19,13 @@ const CATEGORY_COLORS: Record<string, string> = {
   scholarship: '#2563eb',
   exhibition: '#9333ea',
   competition: '#F5A623',
+}
+
+const DOT_PATTERN: React.CSSProperties = {
+  position: 'absolute', inset: 0, opacity: 0.04,
+  backgroundImage: 'radial-gradient(circle, #F5A623 1px, transparent 1px)',
+  backgroundSize: '40px 40px',
+  pointerEvents: 'none',
 }
 
 export function Opportunities() {
@@ -37,8 +45,12 @@ export function Opportunities() {
   return (
     <div>
       {/* Hero */}
-      <section style={{ background: 'linear-gradient(135deg,#1A2744,#243660)', padding: '4rem 1.5rem' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+      <section style={{
+        background: 'linear-gradient(135deg, #1A2744 0%, #243660 60%, #1A2744 100%)',
+        padding: '5rem 1.5rem', position: 'relative', overflow: 'hidden',
+      }}>
+        <div style={DOT_PATTERN} />
+        <div style={{ maxWidth: 1200, margin: '0 auto', position: 'relative' }}>
           <h1 style={{ fontFamily: 'Syne', fontWeight: 800, fontSize: 'clamp(2rem, 5vw, 3.5rem)', color: 'white', marginBottom: 16 }}>
             Opportunity <span style={{ color: '#F5A623' }}>Portal</span>
           </h1>
@@ -61,7 +73,10 @@ export function Opportunities() {
                 width: '100%', padding: '0.65rem 1rem 0.65rem 2.25rem',
                 borderRadius: 10, border: '1.5px solid #e5e7eb',
                 fontFamily: 'DM Sans', fontSize: '0.9rem', outline: 'none', boxSizing: 'border-box',
+                transition: 'border-color 0.2s',
               }}
+              onFocus={e => (e.currentTarget.style.borderColor = '#F5A623')}
+              onBlur={e => (e.currentTarget.style.borderColor = '#e5e7eb')}
             />
           </div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
@@ -75,6 +90,19 @@ export function Opportunities() {
                   background: category === cat.value ? 'rgba(245,166,35,0.1)' : 'white',
                   color: category === cat.value ? '#F5A623' : '#374151',
                   fontFamily: 'DM Sans', fontSize: '0.85rem', fontWeight: 600, cursor: 'pointer',
+                  transition: 'border-color 0.2s, background 0.2s, color 0.2s',
+                }}
+                onMouseEnter={e => {
+                  if (category !== cat.value) {
+                    e.currentTarget.style.borderColor = 'rgba(245,166,35,0.4)'
+                    e.currentTarget.style.color = '#F5A623'
+                  }
+                }}
+                onMouseLeave={e => {
+                  if (category !== cat.value) {
+                    e.currentTarget.style.borderColor = '#e5e7eb'
+                    e.currentTarget.style.color = '#374151'
+                  }
                 }}
               >
                 {cat.label}
@@ -98,11 +126,25 @@ export function Opportunities() {
           ) : (
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: 20 }}>
               {filtered.map(opp => (
-                <div key={opp.id} style={{
-                  background: 'white', borderRadius: 16, padding: '1.5rem',
-                  boxShadow: '0 2px 12px rgba(26,39,68,0.06)', border: '1px solid rgba(26,39,68,0.06)',
-                  display: 'flex', flexDirection: 'column',
-                }}>
+                <div
+                  key={opp.id}
+                  style={{
+                    background: 'white', borderRadius: 16, padding: '1.5rem',
+                    boxShadow: '0 2px 12px rgba(26,39,68,0.06)', border: '1px solid rgba(26,39,68,0.06)',
+                    display: 'flex', flexDirection: 'column',
+                    transition: 'box-shadow 0.2s, transform 0.2s',
+                  }}
+                  onMouseEnter={e => {
+                    const el = e.currentTarget as HTMLElement
+                    el.style.boxShadow = '0 8px 32px rgba(26,39,68,0.12)'
+                    el.style.transform = 'translateY(-3px)'
+                  }}
+                  onMouseLeave={e => {
+                    const el = e.currentTarget as HTMLElement
+                    el.style.boxShadow = '0 2px 12px rgba(26,39,68,0.06)'
+                    el.style.transform = 'translateY(0)'
+                  }}
+                >
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 12 }}>
                     <span style={{
                       background: `${CATEGORY_COLORS[opp.category]}18`,
@@ -142,7 +184,10 @@ export function Opportunities() {
                       style={{
                         background: '#F5A623', borderRadius: 8, padding: '0.5rem 1rem',
                         fontFamily: 'Syne', fontWeight: 700, fontSize: '0.8rem', color: '#1A2744', textDecoration: 'none',
+                        transition: 'background 0.2s',
                       }}
+                      onMouseEnter={e => (e.currentTarget.style.background = '#e8951a')}
+                      onMouseLeave={e => (e.currentTarget.style.background = '#F5A623')}
                     >
                       View →
                     </a>
@@ -155,9 +200,9 @@ export function Opportunities() {
       </section>
 
       {/* Premium alerts CTA */}
-      <section style={{ background: '#1A2744', padding: '3rem 1.5rem' }}>
+      <section style={{ background: '#1A2744', padding: '4rem 1.5rem' }}>
         <div style={{ maxWidth: 720, margin: '0 auto', textAlign: 'center' }}>
-          <h2 style={{ fontFamily: 'Syne', fontWeight: 800, fontSize: '1.5rem', color: 'white', marginBottom: 12 }}>
+          <h2 style={{ fontFamily: 'Syne', fontWeight: 800, fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', color: 'white', marginBottom: 12 }}>
             Never Miss an Opportunity
           </h2>
           <p style={{ fontFamily: 'DM Sans', color: 'rgba(255,255,255,0.65)', marginBottom: '1.5rem', lineHeight: 1.7 }}>
@@ -169,7 +214,10 @@ export function Opportunities() {
               display: 'inline-block', background: '#F5A623', borderRadius: 10,
               padding: '0.875rem 1.75rem', fontFamily: 'Syne', fontWeight: 700,
               fontSize: '0.95rem', color: '#1A2744', textDecoration: 'none',
+              transition: 'background 0.2s',
             }}
+            onMouseEnter={e => (e.currentTarget.style.background = '#e8951a')}
+            onMouseLeave={e => (e.currentTarget.style.background = '#F5A623')}
           >
             Subscribe for Premium Alerts
           </Link>

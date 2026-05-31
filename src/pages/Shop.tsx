@@ -1,9 +1,17 @@
 import { useProducts } from '@/hooks/useFirestore'
 import { LoadingSpinner } from '@/components/shared/LoadingSpinner'
 import type { Product } from '@/types'
+import type React from 'react'
 
 function formatUGX(n: number) {
   return `UGX ${n.toLocaleString()}`
+}
+
+const DOT_PATTERN: React.CSSProperties = {
+  position: 'absolute', inset: 0, opacity: 0.04,
+  backgroundImage: 'radial-gradient(circle, #F5A623 1px, transparent 1px)',
+  backgroundSize: '40px 40px',
+  pointerEvents: 'none',
 }
 
 interface ShopProps {
@@ -17,8 +25,12 @@ export function Shop({ onAddToCart, onCartOpen }: ShopProps) {
   return (
     <div>
       {/* Hero */}
-      <section style={{ background: 'linear-gradient(135deg,#1A2744,#243660)', padding: '4rem 1.5rem' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+      <section style={{
+        background: 'linear-gradient(135deg, #1A2744 0%, #243660 60%, #1A2744 100%)',
+        padding: '5rem 1.5rem', position: 'relative', overflow: 'hidden',
+      }}>
+        <div style={DOT_PATTERN} />
+        <div style={{ maxWidth: 1200, margin: '0 auto', position: 'relative' }}>
           <h1 style={{ fontFamily: 'Syne', fontWeight: 800, fontSize: 'clamp(2rem, 5vw, 3.5rem)', color: 'white', marginBottom: 16 }}>
             Social Enterprise <span style={{ color: '#F5A623' }}>Shop</span>
           </h1>
@@ -29,7 +41,7 @@ export function Shop({ onAddToCart, onCartOpen }: ShopProps) {
       </section>
 
       {/* Products */}
-      <section style={{ background: '#f8f9fc', padding: '3rem 1.5rem' }}>
+      <section style={{ background: '#f8f9fc', padding: '5rem 1.5rem' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
           {loading ? (
             <LoadingSpinner />
@@ -40,11 +52,25 @@ export function Shop({ onAddToCart, onCartOpen }: ShopProps) {
           ) : (
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 24 }}>
               {products.map(product => (
-                <div key={product.id} style={{
-                  background: 'white', borderRadius: 16, overflow: 'hidden',
-                  boxShadow: '0 2px 12px rgba(26,39,68,0.06)', border: '1px solid rgba(26,39,68,0.06)',
-                  display: 'flex', flexDirection: 'column',
-                }}>
+                <div
+                  key={product.id}
+                  style={{
+                    background: 'white', borderRadius: 16, overflow: 'hidden',
+                    boxShadow: '0 2px 12px rgba(26,39,68,0.06)', border: '1px solid rgba(26,39,68,0.06)',
+                    display: 'flex', flexDirection: 'column',
+                    transition: 'box-shadow 0.2s, transform 0.2s',
+                  }}
+                  onMouseEnter={e => {
+                    const el = e.currentTarget as HTMLElement
+                    el.style.boxShadow = '0 8px 32px rgba(26,39,68,0.12)'
+                    el.style.transform = 'translateY(-3px)'
+                  }}
+                  onMouseLeave={e => {
+                    const el = e.currentTarget as HTMLElement
+                    el.style.boxShadow = '0 2px 12px rgba(26,39,68,0.06)'
+                    el.style.transform = 'translateY(0)'
+                  }}
+                >
                   <div style={{ height: 220, background: '#f3f4f6', position: 'relative', overflow: 'hidden' }}>
                     {product.imageUrl ? (
                       <img src={product.imageUrl} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
@@ -91,8 +117,12 @@ export function Shop({ onAddToCart, onCartOpen }: ShopProps) {
                           background: product.inStock ? '#F5A623' : '#e5e7eb',
                           border: 'none', borderRadius: 8, padding: '0.5rem 1rem',
                           fontFamily: 'Syne', fontWeight: 700, fontSize: '0.85rem',
-                          color: product.inStock ? '#1A2744' : '#9ca3af', cursor: product.inStock ? 'pointer' : 'not-allowed',
+                          color: product.inStock ? '#1A2744' : '#9ca3af',
+                          cursor: product.inStock ? 'pointer' : 'not-allowed',
+                          transition: 'background 0.2s',
                         }}
+                        onMouseEnter={e => { if (product.inStock) (e.currentTarget).style.background = '#e8951a' }}
+                        onMouseLeave={e => { if (product.inStock) (e.currentTarget).style.background = '#F5A623' }}
                       >
                         Add to Cart
                       </button>

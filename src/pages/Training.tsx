@@ -8,14 +8,25 @@ function formatUGX(amount: number) {
 const WHATSAPP_ENROL = (title: string) =>
   `https://wa.me/256786259854?text=Hi%20AElevate%2C%20I%27d%20like%20to%20enrol%20in%20the%20%22${encodeURIComponent(title)}%22%20programme`
 
+const DOT_PATTERN: React.CSSProperties = {
+  position: 'absolute', inset: 0, opacity: 0.04,
+  backgroundImage: 'radial-gradient(circle, #F5A623 1px, transparent 1px)',
+  backgroundSize: '40px 40px',
+  pointerEvents: 'none',
+}
+
 export function Training() {
   const { programmes, loading } = useProgrammes()
 
   return (
     <div>
       {/* Hero */}
-      <section style={{ background: 'linear-gradient(135deg,#1A2744,#243660)', padding: '4rem 1.5rem' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+      <section style={{
+        background: 'linear-gradient(135deg, #1A2744 0%, #243660 60%, #1A2744 100%)',
+        padding: '5rem 1.5rem', position: 'relative', overflow: 'hidden',
+      }}>
+        <div style={DOT_PATTERN} />
+        <div style={{ maxWidth: 1200, margin: '0 auto', position: 'relative' }}>
           <h1 style={{ fontFamily: 'Syne', fontWeight: 800, fontSize: 'clamp(2rem, 5vw, 3.5rem)', color: 'white', marginBottom: 16 }}>
             Training <span style={{ color: '#F5A623' }}>Academy</span>
           </h1>
@@ -26,7 +37,7 @@ export function Training() {
       </section>
 
       {/* Programmes */}
-      <section style={{ background: '#f8f9fc', padding: '4rem 1.5rem' }}>
+      <section style={{ background: '#f8f9fc', padding: '5rem 1.5rem' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
           {loading ? (
             <LoadingSpinner />
@@ -37,10 +48,24 @@ export function Training() {
           ) : (
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: 24 }}>
               {programmes.map(prog => (
-                <div key={prog.id} style={{
-                  background: 'white', borderRadius: 16, overflow: 'hidden',
-                  boxShadow: '0 2px 12px rgba(26,39,68,0.06)', border: '1px solid rgba(26,39,68,0.06)',
-                }}>
+                <div
+                  key={prog.id}
+                  style={{
+                    background: 'white', borderRadius: 16, overflow: 'hidden',
+                    boxShadow: '0 2px 12px rgba(26,39,68,0.06)', border: '1px solid rgba(26,39,68,0.06)',
+                    transition: 'box-shadow 0.2s, transform 0.2s',
+                  }}
+                  onMouseEnter={e => {
+                    const el = e.currentTarget as HTMLElement
+                    el.style.boxShadow = '0 8px 32px rgba(26,39,68,0.12)'
+                    el.style.transform = 'translateY(-3px)'
+                  }}
+                  onMouseLeave={e => {
+                    const el = e.currentTarget as HTMLElement
+                    el.style.boxShadow = '0 2px 12px rgba(26,39,68,0.06)'
+                    el.style.transform = 'translateY(0)'
+                  }}
+                >
                   {prog.imageUrl && (
                     <img src={prog.imageUrl} alt={prog.title} style={{ width: '100%', height: 180, objectFit: 'cover' }} />
                   )}
@@ -84,7 +109,10 @@ export function Training() {
                         display: 'block', textAlign: 'center', background: '#F5A623',
                         borderRadius: 10, padding: '0.75rem', fontFamily: 'Syne', fontWeight: 700,
                         fontSize: '0.9rem', color: '#1A2744', textDecoration: 'none',
+                        transition: 'background 0.2s',
                       }}
+                      onMouseEnter={e => (e.currentTarget.style.background = '#e8951a')}
+                      onMouseLeave={e => (e.currentTarget.style.background = '#F5A623')}
                     >
                       Enrol Now →
                     </a>
@@ -99,7 +127,7 @@ export function Training() {
       {/* Group training CTA */}
       <section style={{ background: '#1A2744', padding: '4rem 1.5rem' }}>
         <div style={{ maxWidth: 720, margin: '0 auto', textAlign: 'center' }}>
-          <h2 style={{ fontFamily: 'Syne', fontWeight: 800, fontSize: '1.75rem', color: 'white', marginBottom: 12 }}>
+          <h2 style={{ fontFamily: 'Syne', fontWeight: 800, fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', color: 'white', marginBottom: 12 }}>
             Group & Corporate Training
           </h2>
           <p style={{ fontFamily: 'DM Sans', color: 'rgba(255,255,255,0.65)', marginBottom: '1.5rem', lineHeight: 1.7 }}>
@@ -113,9 +141,12 @@ export function Training() {
               display: 'inline-flex', alignItems: 'center', gap: 8,
               background: '#25D366', borderRadius: 10, padding: '0.875rem 1.75rem',
               fontFamily: 'Syne', fontWeight: 700, fontSize: '0.95rem', color: 'white', textDecoration: 'none',
+              transition: 'background 0.2s',
             }}
+            onMouseEnter={e => (e.currentTarget.style.background = '#1ebe5d')}
+            onMouseLeave={e => (e.currentTarget.style.background = '#25D366')}
           >
-            💬 Enquire on WhatsApp
+            Enquire on WhatsApp
           </a>
         </div>
       </section>

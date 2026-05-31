@@ -82,7 +82,10 @@ export function Home() {
                   background: '#F5A623', border: 'none', borderRadius: 10,
                   padding: '0.875rem 1.75rem', fontFamily: 'Syne', fontWeight: 700,
                   fontSize: '0.95rem', color: '#1A2744', cursor: 'pointer',
+                  transition: 'background 0.2s',
                 }}
+                onMouseEnter={e => (e.currentTarget.style.background = '#e8951a')}
+                onMouseLeave={e => (e.currentTarget.style.background = '#F5A623')}
               >
                 Explore Programmes <ArrowRight size={18} />
               </button>
@@ -94,6 +97,15 @@ export function Home() {
                   borderRadius: 10, padding: '0.875rem 1.75rem',
                   fontFamily: 'Syne', fontWeight: 700, fontSize: '0.95rem',
                   color: 'white', cursor: 'pointer',
+                  transition: 'background 0.2s, border-color 0.2s',
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.08)'
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.55)'
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.background = 'transparent'
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)'
                 }}
               >
                 Find Opportunities
@@ -194,7 +206,10 @@ export function Home() {
               background: '#25D366', border: 'none', borderRadius: 10,
               padding: '0.875rem 1.75rem', fontFamily: 'Syne', fontWeight: 700,
               fontSize: '0.95rem', color: 'white', textDecoration: 'none',
+              transition: 'background 0.2s',
             }}
+            onMouseEnter={e => (e.currentTarget.style.background = '#1ebe5d')}
+            onMouseLeave={e => (e.currentTarget.style.background = '#25D366')}
           >
             WhatsApp Us Now
           </a>

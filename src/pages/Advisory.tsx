@@ -1,4 +1,5 @@
 import { Search, Map, DollarSign, Megaphone, Scale, Rocket } from 'lucide-react'
+import type React from 'react'
 
 const ADVISORY_SERVICES = [
   { title: 'Business Diagnosis', desc: "We analyse your current business model, financials, and operations to identify growth blockers and quick wins.", icon: Search },
@@ -9,12 +10,23 @@ const ADVISORY_SERVICES = [
   { title: 'Investor Readiness', desc: 'Pitch deck preparation, financial modelling, and connecting you with relevant funding sources.', icon: Rocket },
 ]
 
+const DOT_PATTERN: React.CSSProperties = {
+  position: 'absolute', inset: 0, opacity: 0.04,
+  backgroundImage: 'radial-gradient(circle, #F5A623 1px, transparent 1px)',
+  backgroundSize: '40px 40px',
+  pointerEvents: 'none',
+}
+
 export function Advisory() {
   return (
     <div>
       {/* Hero */}
-      <section style={{ background: 'linear-gradient(135deg,#1A2744,#243660)', padding: '4rem 1.5rem' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+      <section style={{
+        background: 'linear-gradient(135deg, #1A2744 0%, #243660 60%, #1A2744 100%)',
+        padding: '5rem 1.5rem', position: 'relative', overflow: 'hidden',
+      }}>
+        <div style={DOT_PATTERN} />
+        <div style={{ maxWidth: 1200, margin: '0 auto', position: 'relative' }}>
           <h1 style={{ fontFamily: 'Syne', fontWeight: 800, fontSize: 'clamp(2rem, 5vw, 3.5rem)', color: 'white', marginBottom: 16 }}>
             Expert Business <span style={{ color: '#F5A623' }}>Advisory</span>
           </h1>
@@ -25,17 +37,31 @@ export function Advisory() {
       </section>
 
       {/* Services grid */}
-      <section style={{ background: '#f8f9fc', padding: '4rem 1.5rem' }}>
+      <section style={{ background: '#f8f9fc', padding: '5rem 1.5rem' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
-          <h2 style={{ fontFamily: 'Syne', fontWeight: 800, fontSize: '2rem', color: '#1A2744', marginBottom: '2.5rem', textAlign: 'center' }}>
+          <h2 style={{ fontFamily: 'Syne', fontWeight: 800, fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', color: '#1A2744', marginBottom: '2.5rem', textAlign: 'center' }}>
             Our Advisory Services
           </h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 20 }}>
             {ADVISORY_SERVICES.map(({ icon: Icon, title, desc }) => (
-              <div key={title} style={{
-                background: 'white', borderRadius: 16, padding: '1.5rem',
-                boxShadow: '0 2px 12px rgba(26,39,68,0.06)', border: '1px solid rgba(26,39,68,0.06)',
-              }}>
+              <div
+                key={title}
+                style={{
+                  background: 'white', borderRadius: 16, padding: '1.5rem',
+                  boxShadow: '0 2px 12px rgba(26,39,68,0.06)', border: '1px solid rgba(26,39,68,0.06)',
+                  transition: 'box-shadow 0.2s, transform 0.2s',
+                }}
+                onMouseEnter={e => {
+                  const el = e.currentTarget as HTMLElement
+                  el.style.boxShadow = '0 8px 32px rgba(26,39,68,0.12)'
+                  el.style.transform = 'translateY(-3px)'
+                }}
+                onMouseLeave={e => {
+                  const el = e.currentTarget as HTMLElement
+                  el.style.boxShadow = '0 2px 12px rgba(26,39,68,0.06)'
+                  el.style.transform = 'translateY(0)'
+                }}
+              >
                 <div style={{
                   width: 44, height: 44, borderRadius: 12,
                   background: 'rgba(245,166,35,0.1)', display: 'flex',
@@ -58,7 +84,7 @@ export function Advisory() {
       {/* Booking CTA */}
       <section style={{ background: '#1A2744', padding: '4rem 1.5rem' }}>
         <div style={{ maxWidth: 720, margin: '0 auto', textAlign: 'center' }}>
-          <h2 style={{ fontFamily: 'Syne', fontWeight: 800, fontSize: '1.75rem', color: 'white', marginBottom: 12 }}>
+          <h2 style={{ fontFamily: 'Syne', fontWeight: 800, fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', color: 'white', marginBottom: 12 }}>
             Book Your Advisory Session
           </h2>
           <p style={{ fontFamily: 'DM Sans', color: 'rgba(255,255,255,0.65)', marginBottom: '2rem', lineHeight: 1.7 }}>
@@ -73,7 +99,10 @@ export function Advisory() {
                 display: 'inline-flex', alignItems: 'center', gap: 8,
                 background: '#25D366', borderRadius: 10, padding: '0.875rem 1.75rem',
                 fontFamily: 'Syne', fontWeight: 700, fontSize: '0.95rem', color: 'white', textDecoration: 'none',
+                transition: 'background 0.2s',
               }}
+              onMouseEnter={e => (e.currentTarget.style.background = '#1ebe5d')}
+              onMouseLeave={e => (e.currentTarget.style.background = '#25D366')}
             >
               Book on WhatsApp
             </a>
@@ -84,7 +113,10 @@ export function Advisory() {
                 background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)',
                 borderRadius: 10, padding: '0.875rem 1.75rem',
                 fontFamily: 'Syne', fontWeight: 700, fontSize: '0.95rem', color: 'white', textDecoration: 'none',
+                transition: 'background 0.2s',
               }}
+              onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.18)')}
+              onMouseLeave={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.1)')}
             >
               Email Us
             </a>
