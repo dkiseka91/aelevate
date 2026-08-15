@@ -4,7 +4,7 @@ import { initiatePesapalPayment } from '@/lib/pesapal'
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 import { db, COLLECTIONS } from '@/lib/firebase'
 import { AuthModal } from '@/components/shared/AuthModal'
-import { Check } from 'lucide-react'
+import { Check, CreditCard } from 'lucide-react'
 
 const PLANS = [
   {
@@ -88,8 +88,19 @@ export function Subscribe() {
               style={{
                 background: 'white', borderRadius: 20, padding: '2rem',
                 border: selected === plan.id ? '2px solid #F5A623' : '2px solid #e5e7eb',
-                cursor: 'pointer', position: 'relative', transition: 'border-color 0.2s',
+                cursor: 'pointer', position: 'relative',
+                transition: 'border-color 0.2s, box-shadow 0.2s, transform 0.2s',
                 boxShadow: selected === plan.id ? '0 8px 32px rgba(245,166,35,0.12)' : '0 2px 12px rgba(26,39,68,0.06)',
+              }}
+              onMouseEnter={e => {
+                const el = e.currentTarget as HTMLElement
+                if (selected !== plan.id) el.style.borderColor = 'rgba(245,166,35,0.4)'
+                el.style.transform = 'translateY(-3px)'
+              }}
+              onMouseLeave={e => {
+                const el = e.currentTarget as HTMLElement
+                if (selected !== plan.id) el.style.borderColor = '#e5e7eb'
+                el.style.transform = 'translateY(0)'
               }}
             >
               {plan.badge && (
@@ -133,12 +144,17 @@ export function Subscribe() {
             onClick={handleSubscribe}
             disabled={loading}
             style={{
+              display: 'inline-flex', alignItems: 'center', gap: 8,
               background: loading ? '#9ca3af' : '#F5A623', border: 'none', borderRadius: 12,
               padding: '1rem 2.5rem', fontFamily: 'Syne', fontWeight: 700, fontSize: '1rem',
               color: '#1A2744', cursor: loading ? 'not-allowed' : 'pointer',
+              transition: 'background 0.2s',
             }}
+            onMouseEnter={e => { if (!loading) e.currentTarget.style.background = '#e8951a' }}
+            onMouseLeave={e => { if (!loading) e.currentTarget.style.background = '#F5A623' }}
           >
-            {loading ? 'Redirecting…' : `💳 Subscribe — ${PLANS.find(p => p.id === selected)?.label}`}
+            {!loading && <CreditCard size={18} />}
+            {loading ? 'Redirecting…' : `Subscribe — ${PLANS.find(p => p.id === selected)?.label}`}
           </button>
           <div style={{ fontFamily: 'DM Sans', fontSize: '0.8rem', color: '#9ca3af', marginTop: 10 }}>
             Secure payment via Pesapal · Cancel anytime

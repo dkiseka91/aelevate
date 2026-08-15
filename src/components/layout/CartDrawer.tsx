@@ -1,4 +1,4 @@
-import { X, Trash2, Plus, Minus } from 'lucide-react'
+import { X, Trash2, Plus, Minus, CreditCard } from 'lucide-react'
 import type { CartItem } from '@/types'
 
 interface CartDrawerProps {
@@ -35,7 +35,15 @@ export function CartDrawer({ items, total, onClose, onRemove, onUpdateQty, onChe
           <h2 style={{ fontFamily: 'Syne', fontWeight: 800, fontSize: '1.1rem', color: '#1A2744' }}>
             Your Cart ({items.length})
           </h2>
-          <button onClick={onClose} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#6b7280' }}>
+          <button
+            onClick={onClose}
+            style={{
+              background: 'none', border: 'none', cursor: 'pointer', color: '#6b7280',
+              padding: '0.25rem', borderRadius: 6, transition: 'color 0.2s',
+            }}
+            onMouseEnter={e => (e.currentTarget.style.color = '#1A2744')}
+            onMouseLeave={e => (e.currentTarget.style.color = '#6b7280')}
+          >
             <X size={20} />
           </button>
         </div>
@@ -68,19 +76,43 @@ export function CartDrawer({ items, total, onClose, onRemove, onUpdateQty, onChe
                     {formatUGX(item.product.price)}
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 6 }}>
-                    <button onClick={() => onUpdateQty(item.product.id, item.quantity - 1)}
-                      style={{ background: '#f3f4f6', border: 'none', borderRadius: 6, width: 28, height: 28, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <button
+                      onClick={() => onUpdateQty(item.product.id, item.quantity - 1)}
+                      style={{
+                        background: '#f3f4f6', border: 'none', borderRadius: 6, width: 28, height: 28,
+                        cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        transition: 'background 0.15s',
+                      }}
+                      onMouseEnter={e => (e.currentTarget.style.background = '#e5e7eb')}
+                      onMouseLeave={e => (e.currentTarget.style.background = '#f3f4f6')}
+                    >
                       <Minus size={12} />
                     </button>
                     <span style={{ fontFamily: 'DM Sans', fontSize: '0.85rem', fontWeight: 600, minWidth: 20, textAlign: 'center' }}>
                       {item.quantity}
                     </span>
-                    <button onClick={() => onUpdateQty(item.product.id, item.quantity + 1)}
-                      style={{ background: '#f3f4f6', border: 'none', borderRadius: 6, width: 28, height: 28, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <button
+                      onClick={() => onUpdateQty(item.product.id, item.quantity + 1)}
+                      style={{
+                        background: '#f3f4f6', border: 'none', borderRadius: 6, width: 28, height: 28,
+                        cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        transition: 'background 0.15s',
+                      }}
+                      onMouseEnter={e => (e.currentTarget.style.background = '#e5e7eb')}
+                      onMouseLeave={e => (e.currentTarget.style.background = '#f3f4f6')}
+                    >
                       <Plus size={12} />
                     </button>
-                    <button onClick={() => onRemove(item.product.id)}
-                      style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#dc2626', marginLeft: 'auto' }}>
+                    <button
+                      onClick={() => onRemove(item.product.id)}
+                      style={{
+                        background: 'none', border: 'none', cursor: 'pointer',
+                        color: '#dc2626', marginLeft: 'auto',
+                        transition: 'color 0.15s',
+                      }}
+                      onMouseEnter={e => (e.currentTarget.style.color = '#b91c1c')}
+                      onMouseLeave={e => (e.currentTarget.style.color = '#dc2626')}
+                    >
                       <Trash2 size={16} />
                     </button>
                   </div>
@@ -105,12 +137,16 @@ export function CartDrawer({ items, total, onClose, onRemove, onUpdateQty, onChe
                 width: '100%', padding: '0.875rem', background: '#F5A623',
                 border: 'none', borderRadius: 10, fontFamily: 'Syne', fontWeight: 700,
                 fontSize: '0.95rem', color: '#1A2744', cursor: 'pointer',
+                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+                transition: 'background 0.2s',
               }}
+              onMouseEnter={e => (e.currentTarget.style.background = '#e8951a')}
+              onMouseLeave={e => (e.currentTarget.style.background = '#F5A623')}
             >
-              💳 Secure Checkout via Pesapal
+              <CreditCard size={18} /> Secure Checkout via Pesapal
             </button>
             <div style={{ textAlign: 'center', marginTop: 8, fontFamily: 'DM Sans', fontSize: '0.75rem', color: '#9ca3af' }}>
-              Payments powered by Pesapal · Mobile Money & Cards accepted
+              Secure payments · Mobile Money & Cards accepted
             </div>
           </div>
         )}

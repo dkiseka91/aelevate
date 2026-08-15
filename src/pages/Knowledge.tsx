@@ -5,6 +5,14 @@ import { useAuth } from '@/hooks/useAuth'
 import { LoadingSpinner } from '@/components/shared/LoadingSpinner'
 import { AuthModal } from '@/components/shared/AuthModal'
 import { Lock } from 'lucide-react'
+import type React from 'react'
+
+const DOT_PATTERN: React.CSSProperties = {
+  position: 'absolute', inset: 0, opacity: 0.04,
+  backgroundImage: 'radial-gradient(circle, #F5A623 1px, transparent 1px)',
+  backgroundSize: '40px 40px',
+  pointerEvents: 'none',
+}
 
 export function Knowledge() {
   const { articles, loading } = useArticles()
@@ -18,8 +26,12 @@ export function Knowledge() {
   return (
     <div>
       {/* Hero */}
-      <section style={{ background: 'linear-gradient(135deg,#1A2744,#243660)', padding: '4rem 1.5rem' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+      <section style={{
+        background: 'linear-gradient(135deg, #1A2744 0%, #243660 60%, #1A2744 100%)',
+        padding: '5rem 1.5rem', position: 'relative', overflow: 'hidden',
+      }}>
+        <div style={DOT_PATTERN} />
+        <div style={{ maxWidth: 1200, margin: '0 auto', position: 'relative' }}>
           <h1 style={{ fontFamily: 'Syne', fontWeight: 800, fontSize: 'clamp(2rem, 5vw, 3.5rem)', color: 'white', marginBottom: 16 }}>
             Uganda Business <span style={{ color: '#F5A623' }}>Intelligence</span>
           </h1>
@@ -34,7 +46,7 @@ export function Knowledge() {
         <div style={{ background: '#F5A623', padding: '1rem 1.5rem' }}>
           <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
             <div style={{ fontFamily: 'DM Sans', fontWeight: 600, color: '#1A2744' }}>
-              🔒 Some articles are member-only. Subscribe for full access.
+              Some articles are member-only. Subscribe for full access.
             </div>
             <button
               onClick={() => navigate('/subscribe')}
@@ -42,7 +54,10 @@ export function Knowledge() {
                 background: '#1A2744', border: 'none', borderRadius: 8,
                 padding: '0.5rem 1.25rem', fontFamily: 'Syne', fontWeight: 700,
                 fontSize: '0.875rem', color: 'white', cursor: 'pointer',
+                transition: 'background 0.2s',
               }}
+              onMouseEnter={e => (e.currentTarget.style.background = '#243660')}
+              onMouseLeave={e => (e.currentTarget.style.background = '#1A2744')}
             >
               Subscribe for Full Access
             </button>
@@ -51,7 +66,7 @@ export function Knowledge() {
       )}
 
       {/* Articles */}
-      <section style={{ background: '#f8f9fc', padding: '3rem 1.5rem' }}>
+      <section style={{ background: '#f8f9fc', padding: '5rem 1.5rem' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
           {loading ? (
             <LoadingSpinner />
@@ -64,7 +79,7 @@ export function Knowledge() {
               {featured.length > 0 && (
                 <>
                   <h2 style={{ fontFamily: 'Syne', fontWeight: 800, fontSize: '1.25rem', color: '#1A2744', marginBottom: '1.5rem' }}>
-                    ⭐ Featured Articles
+                    Featured Articles
                   </h2>
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: 20, marginBottom: '3rem' }}>
                     {featured.map(a => <ArticleCard key={a.id} article={a} isPremium={isPremium} onLockClick={() => !user ? setAuthOpen(true) : navigate('/subscribe')} />)}
@@ -99,10 +114,23 @@ function ArticleCard({ article, isPremium, onLockClick }: {
   const isLocked = !isPremium
 
   return (
-    <div style={{
-      background: 'white', borderRadius: 16, overflow: 'hidden',
-      boxShadow: '0 2px 12px rgba(26,39,68,0.06)', border: '1px solid rgba(26,39,68,0.06)',
-    }}>
+    <div
+      style={{
+        background: 'white', borderRadius: 16, overflow: 'hidden',
+        boxShadow: '0 2px 12px rgba(26,39,68,0.06)', border: '1px solid rgba(26,39,68,0.06)',
+        transition: 'box-shadow 0.2s, transform 0.2s',
+      }}
+      onMouseEnter={e => {
+        const el = e.currentTarget as HTMLElement
+        el.style.boxShadow = '0 8px 32px rgba(26,39,68,0.12)'
+        el.style.transform = 'translateY(-3px)'
+      }}
+      onMouseLeave={e => {
+        const el = e.currentTarget as HTMLElement
+        el.style.boxShadow = '0 2px 12px rgba(26,39,68,0.06)'
+        el.style.transform = 'translateY(0)'
+      }}
+    >
       {article.imageUrl && (
         <img src={article.imageUrl} alt={article.title} style={{ width: '100%', height: 180, objectFit: 'cover' }} />
       )}
@@ -115,7 +143,15 @@ function ArticleCard({ article, isPremium, onLockClick }: {
           }}>
             {article.category}
           </span>
-          {article.featured && <span style={{ fontSize: '0.75rem', color: '#F5A623' }}>⭐</span>}
+          {article.featured && (
+            <span style={{
+              background: 'rgba(245,166,35,0.12)', color: '#F5A623',
+              borderRadius: 100, padding: '0.2rem 0.6rem',
+              fontFamily: 'DM Sans', fontSize: '0.72rem', fontWeight: 600,
+            }}>
+              Featured
+            </span>
+          )}
         </div>
         <h3 style={{ fontFamily: 'Syne', fontWeight: 700, fontSize: '1rem', color: '#1A2744', marginBottom: 8 }}>
           {article.title}
@@ -130,15 +166,23 @@ function ArticleCard({ article, isPremium, onLockClick }: {
               width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
               background: '#f3f4f6', border: 'none', borderRadius: 8, padding: '0.65rem',
               fontFamily: 'DM Sans', fontWeight: 600, fontSize: '0.85rem', color: '#374151', cursor: 'pointer',
+              transition: 'background 0.2s',
             }}
+            onMouseEnter={e => (e.currentTarget.style.background = '#e5e7eb')}
+            onMouseLeave={e => (e.currentTarget.style.background = '#f3f4f6')}
           >
             <Lock size={14} /> Full article — members only
           </button>
         ) : (
-          <button style={{
-            width: '100%', background: '#F5A623', border: 'none', borderRadius: 8, padding: '0.65rem',
-            fontFamily: 'Syne', fontWeight: 700, fontSize: '0.875rem', color: '#1A2744', cursor: 'pointer',
-          }}>
+          <button
+            style={{
+              width: '100%', background: '#F5A623', border: 'none', borderRadius: 8, padding: '0.65rem',
+              fontFamily: 'Syne', fontWeight: 700, fontSize: '0.875rem', color: '#1A2744', cursor: 'pointer',
+              transition: 'background 0.2s',
+            }}
+            onMouseEnter={e => (e.currentTarget.style.background = '#e8951a')}
+            onMouseLeave={e => (e.currentTarget.style.background = '#F5A623')}
+          >
             Read Article →
           </button>
         )}

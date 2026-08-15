@@ -1,4 +1,13 @@
 import { useEffect } from 'react'
+import { MapPin, Phone } from 'lucide-react'
+import type React from 'react'
+
+const DOT_PATTERN: React.CSSProperties = {
+  position: 'absolute', inset: 0, opacity: 0.04,
+  backgroundImage: 'radial-gradient(circle, #F5A623 1px, transparent 1px)',
+  backgroundSize: '40px 40px',
+  pointerEvents: 'none',
+}
 
 export function About() {
   useEffect(() => {
@@ -10,8 +19,12 @@ export function About() {
   return (
     <div>
       {/* Hero */}
-      <section style={{ background: '#1A2744', padding: '4rem 1.5rem' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+      <section style={{
+        background: 'linear-gradient(135deg, #1A2744 0%, #243660 60%, #1A2744 100%)',
+        padding: '5rem 1.5rem', position: 'relative', overflow: 'hidden',
+      }}>
+        <div style={DOT_PATTERN} />
+        <div style={{ maxWidth: 1200, margin: '0 auto', position: 'relative' }}>
           <h1 style={{ fontFamily: 'Syne', fontWeight: 800, fontSize: 'clamp(2rem, 5vw, 3.5rem)', color: 'white', marginBottom: 16 }}>
             About <span style={{ color: '#F5A623' }}>AElevate</span>
           </h1>
@@ -22,17 +35,32 @@ export function About() {
       </section>
 
       {/* Mission */}
-      <section style={{ background: 'white', padding: '4rem 1.5rem' }}>
+      <section style={{ background: 'white', padding: '5rem 1.5rem' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 40 }}>
           {[
             { title: 'Our Mission', body: 'To empower Ugandan entrepreneurs with practical tools, knowledge, and connections that drive sustainable business growth and community transformation.' },
             { title: 'Our Vision', body: 'A Uganda where every small business owner has equal access to the resources, mentorship, and opportunities needed to build a thriving enterprise.' },
-            { title: 'Our Values', body: 'Integrity. Practicality. Community. We deliver real-world solutions, built for Uganda, by people who understand Uganda\'s business landscape.' },
+            { title: 'Our Values', body: "Integrity. Practicality. Community. We deliver real-world solutions, built for Uganda, by people who understand Uganda's business landscape." },
           ].map(item => (
-            <div key={item.title} style={{
-              background: '#f8f9fc', borderRadius: 16, padding: '2rem',
-              borderTop: '4px solid #F5A623',
-            }}>
+            <div
+              key={item.title}
+              style={{
+                background: '#f8f9fc', borderRadius: 16, padding: '2rem',
+                borderTop: '4px solid #F5A623',
+                transition: 'box-shadow 0.2s, transform 0.2s',
+                boxShadow: '0 2px 12px rgba(26,39,68,0.06)',
+              }}
+              onMouseEnter={e => {
+                const el = e.currentTarget as HTMLElement
+                el.style.boxShadow = '0 8px 32px rgba(26,39,68,0.12)'
+                el.style.transform = 'translateY(-3px)'
+              }}
+              onMouseLeave={e => {
+                const el = e.currentTarget as HTMLElement
+                el.style.boxShadow = '0 2px 12px rgba(26,39,68,0.06)'
+                el.style.transform = 'translateY(0)'
+              }}
+            >
               <h3 style={{ fontFamily: 'Syne', fontWeight: 800, fontSize: '1.25rem', color: '#1A2744', marginBottom: 12 }}>
                 {item.title}
               </h3>
@@ -43,22 +71,35 @@ export function About() {
       </section>
 
       {/* Team */}
-      <section style={{ background: '#f8f9fc', padding: '4rem 1.5rem' }}>
+      <section style={{ background: '#f8f9fc', padding: '5rem 1.5rem' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
-          <h2 style={{ fontFamily: 'Syne', fontWeight: 800, fontSize: '2rem', color: '#1A2744', marginBottom: '2.5rem', textAlign: 'center' }}>
+          <h2 style={{ fontFamily: 'Syne', fontWeight: 800, fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', color: '#1A2744', marginBottom: '2.5rem', textAlign: 'center' }}>
             Our Team
           </h2>
           <div style={{
             display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: 24,
           }}>
-            {/* Team members will be loaded from Firestore; placeholder shown during setup */}
             {[
               { name: 'Team Member', role: 'CEO & Founder', bio: 'Add team members via the Admin Panel.' },
             ].map(member => (
-              <div key={member.name} style={{
-                background: 'white', borderRadius: 16, padding: '1.5rem', textAlign: 'center',
-                boxShadow: '0 2px 12px rgba(26,39,68,0.06)',
-              }}>
+              <div
+                key={member.name}
+                style={{
+                  background: 'white', borderRadius: 16, padding: '1.5rem', textAlign: 'center',
+                  boxShadow: '0 2px 12px rgba(26,39,68,0.06)',
+                  transition: 'box-shadow 0.2s, transform 0.2s',
+                }}
+                onMouseEnter={e => {
+                  const el = e.currentTarget as HTMLElement
+                  el.style.boxShadow = '0 8px 32px rgba(26,39,68,0.12)'
+                  el.style.transform = 'translateY(-3px)'
+                }}
+                onMouseLeave={e => {
+                  const el = e.currentTarget as HTMLElement
+                  el.style.boxShadow = '0 2px 12px rgba(26,39,68,0.06)'
+                  el.style.transform = 'translateY(0)'
+                }}
+              >
                 <div style={{
                   width: 80, height: 80, borderRadius: '50%', background: '#e5e7eb',
                   margin: '0 auto 1rem', border: '3px solid #F5A623',
@@ -75,22 +116,53 @@ export function About() {
       {/* Contact */}
       <section id="contact" style={{ background: '#1A2744', padding: '4rem 1.5rem' }}>
         <div style={{ maxWidth: 800, margin: '0 auto', textAlign: 'center' }}>
-          <h2 style={{ fontFamily: 'Syne', fontWeight: 800, fontSize: '2rem', color: 'white', marginBottom: 12 }}>Get In Touch</h2>
+          <h2 style={{ fontFamily: 'Syne', fontWeight: 800, fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', color: 'white', marginBottom: 12 }}>
+            Get In Touch
+          </h2>
           <p style={{ fontFamily: 'DM Sans', color: 'rgba(255,255,255,0.65)', marginBottom: '2rem', lineHeight: 1.7 }}>
             Based in Naalya, Uganda. Reach us via WhatsApp, phone, or email.
           </p>
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 16 }}>
-            <a href="https://wa.me/256786259854" target="_blank" rel="noopener noreferrer"
-              style={{ display: 'flex', alignItems: 'center', gap: 8, background: '#25D366', borderRadius: 10, padding: '0.75rem 1.5rem', color: 'white', textDecoration: 'none', fontFamily: 'Syne', fontWeight: 700, fontSize: '0.9rem' }}>
-              💬 WhatsApp Us
+            <a
+              href="https://wa.me/256786259854"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'flex', alignItems: 'center', gap: 8, background: '#25D366', borderRadius: 10,
+                padding: '0.75rem 1.5rem', color: 'white', textDecoration: 'none',
+                fontFamily: 'Syne', fontWeight: 700, fontSize: '0.9rem',
+                transition: 'background 0.2s',
+              }}
+              onMouseEnter={e => (e.currentTarget.style.background = '#1ebe5d')}
+              onMouseLeave={e => (e.currentTarget.style.background = '#25D366')}
+            >
+              WhatsApp Us
             </a>
-            <a href="mailto:elevatebusinesssolutions96@gmail.com"
-              style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: 10, padding: '0.75rem 1.5rem', color: 'white', textDecoration: 'none', fontFamily: 'Syne', fontWeight: 700, fontSize: '0.9rem' }}>
-              ✉ Email Us
+            <a
+              href="mailto:elevatebusinesssolutions96@gmail.com"
+              style={{
+                display: 'flex', alignItems: 'center', gap: 8,
+                background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: 10,
+                padding: '0.75rem 1.5rem', color: 'white', textDecoration: 'none',
+                fontFamily: 'Syne', fontWeight: 700, fontSize: '0.9rem',
+                transition: 'background 0.2s',
+              }}
+              onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.18)')}
+              onMouseLeave={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.1)')}
+            >
+              Email Us
             </a>
           </div>
-          <div style={{ marginTop: '2rem', fontFamily: 'DM Sans', fontSize: '0.875rem', color: 'rgba(255,255,255,0.45)' }}>
-            📍 Naalya, Uganda · 📞 +256 786 259854
+          <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'center', gap: 24, flexWrap: 'wrap' }}>
+            {[
+              { icon: MapPin, text: 'Naalya, Uganda' },
+              { icon: Phone, text: '+256 786 259854' },
+            ].map(({ icon: Icon, text }) => (
+              <div key={text} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <Icon size={13} color="rgba(255,255,255,0.4)" />
+                <span style={{ fontFamily: 'DM Sans', fontSize: '0.875rem', color: 'rgba(255,255,255,0.45)' }}>{text}</span>
+              </div>
+            ))}
           </div>
         </div>
       </section>

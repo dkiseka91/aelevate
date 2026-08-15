@@ -48,7 +48,7 @@ export function Header({ cartCount = 0, onCartOpen }: HeaderProps) {
               width: 36, height: 36, borderRadius: '50%', border: '2.5px solid #F5A623',
               display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
             }}>
-              <span style={{ fontFamily: 'Syne', fontWeight: 800, color: '#F5A623', fontSize: '1rem' }}>V</span>
+              <span style={{ fontFamily: 'Syne', fontWeight: 800, color: '#F5A623', fontSize: '1rem' }}>A</span>
             </div>
             <div>
               <div style={{ fontFamily: 'Syne', fontWeight: 800, color: 'white', fontSize: '1rem', lineHeight: 1 }}>AElevate</div>

@@ -82,7 +82,10 @@ export function Home() {
                   background: '#F5A623', border: 'none', borderRadius: 10,
                   padding: '0.875rem 1.75rem', fontFamily: 'Syne', fontWeight: 700,
                   fontSize: '0.95rem', color: '#1A2744', cursor: 'pointer',
+                  transition: 'background 0.2s',
                 }}
+                onMouseEnter={e => (e.currentTarget.style.background = '#e8951a')}
+                onMouseLeave={e => (e.currentTarget.style.background = '#F5A623')}
               >
                 Explore Programmes <ArrowRight size={18} />
               </button>
@@ -94,6 +97,15 @@ export function Home() {
                   borderRadius: 10, padding: '0.875rem 1.75rem',
                   fontFamily: 'Syne', fontWeight: 700, fontSize: '0.95rem',
                   color: 'white', cursor: 'pointer',
+                  transition: 'background 0.2s, border-color 0.2s',
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.08)'
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.55)'
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.background = 'transparent'
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)'
                 }}
               >
                 Find Opportunities
@@ -104,17 +116,17 @@ export function Home() {
       </section>
 
       {/* Stats */}
-      <section style={{ background: '#F5A623', padding: '2rem 1.5rem' }}>
+      <section style={{ background: 'white', borderBottom: '1px solid #f0f1f5', padding: '2.5rem 1.5rem' }}>
         <div style={{
           maxWidth: 1200, margin: '0 auto',
           display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 16,
         }}>
           {STATS.map(stat => (
             <div key={stat.label} style={{ textAlign: 'center' }}>
-              <div style={{ fontFamily: 'Syne', fontWeight: 800, fontSize: '2rem', color: '#1A2744' }}>
+              <div style={{ fontFamily: 'Syne', fontWeight: 800, fontSize: '2rem', color: '#F5A623' }}>
                 {stat.value}
               </div>
-              <div style={{ fontFamily: 'DM Sans', fontSize: '0.875rem', color: 'rgba(26,39,68,0.75)' }}>
+              <div style={{ fontFamily: 'DM Sans', fontSize: '0.875rem', color: '#6B7A8D' }}>
                 {stat.label}
               </div>
             </div>
@@ -194,9 +206,12 @@ export function Home() {
               background: '#25D366', border: 'none', borderRadius: 10,
               padding: '0.875rem 1.75rem', fontFamily: 'Syne', fontWeight: 700,
               fontSize: '0.95rem', color: 'white', textDecoration: 'none',
+              transition: 'background 0.2s',
             }}
+            onMouseEnter={e => (e.currentTarget.style.background = '#1ebe5d')}
+            onMouseLeave={e => (e.currentTarget.style.background = '#25D366')}
           >
-            💬 WhatsApp Us Now
+            WhatsApp Us Now
           </a>
         </div>
       </section>
